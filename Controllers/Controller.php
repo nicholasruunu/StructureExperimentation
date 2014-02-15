@@ -1,5 +1,5 @@
 <?php namespace Controllers;
 
-class Controller
+class Controller extends Observer
 {
 }

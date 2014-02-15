@@ -1,6 +1,7 @@
 <?php namespace Controllers\Posts;
 
 use Controllers\Controller;
+use Domain\Feeds\FeedCreator;
 use Domain\Posts\PostCreatorObserver;
 use Domain\Posts\PostCreator;
 use Domain\Posts\PostForm;
@@ -10,19 +11,19 @@ use ...\...\Request;
 
 class CreatePostController extends Controller implements PostCreatorObserver
 {
-    private $creator;
+    private $postCreator;
+    private $eventCreator;
     private $redirector;
     private $request;
     private $form;
 
-    public function __construct(PostCreator $creator, PostForm $form, Redirector $redirector, Request $request)
+    public function __construct(FeedCreator $feedCreator, PostCreator $postCreator, PostForm $form, Redirector $redirector, Request $request)
     {
         $this->redirector = $redirector;
         $this->request = $request;
         $this->form = $form;
-
-        $creator->setObserver($this);
-        $this->creator = $creator;
+        $this->eventCreator = $event->setObserver($this);
+        $this->postCreator = $creator->setObserver($event);
     }
 
     public function getCreate()
