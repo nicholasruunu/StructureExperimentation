@@ -22,8 +22,8 @@ class CreatePostController extends Controller implements PostCreatorObserver
         $this->redirector = $redirector;
         $this->request = $request;
         $this->form = $form;
-        $this->eventCreator = $event->setObserver($this);
-        $this->postCreator = $creator->setObserver($event);
+        $this->eventCreator = $feedCreator->setObserver($this);
+        $this->postCreator = $postCreator->setObserver($feedCreator);
     }
 
     public function getCreate()
