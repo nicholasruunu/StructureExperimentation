@@ -12,7 +12,7 @@ use ...\...\Request;
 class CreatePostController extends Controller implements PostCreatorObserver
 {
     private $postCreator;
-    private $eventCreator;
+    private $feedCreator;
     private $redirector;
     private $request;
     private $form;
@@ -22,8 +22,8 @@ class CreatePostController extends Controller implements PostCreatorObserver
         $this->redirector = $redirector;
         $this->request = $request;
         $this->form = $form;
-        $this->eventCreator = $feedCreator->setObserver($this);
-        $this->postCreator = $postCreator->setObserver($feedCreator);
+        $this->feedCreator = $feedCreator->setObserver($this);
+        $this->postCreator = $postCreator->setObserver($this->feedCreator);
     }
 
     public function getCreate()
