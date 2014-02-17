@@ -1,40 +1,34 @@
 <?php namespace Domain\Posts;
 
-class PostCreator
+use Domain\Core\ObserverTrait;
+
+class PostCreator implements PostCreatorObserver
 {
+    use ObserverTrait;
+
     private $posts;
-    private $observer;
 
     public function __construct(PostRepository $posts)
     {
         $this->posts = $posts;
     }
 
-    public function setObserver(PostCreatorObserver $observer)
-    {
-        $this->observer = $observer;
-    }
-
     public function create(array $data)
     {
         $post = $this->posts->create($data);
         if ( ! $this->posts->save($post)) {
-            return $this->failure($post->getErrors());
+            return $this->onPostCreateFailure($post->getErrors());
         }
-        return $this->success($post);
+        return $this->onPostCreateSuccess($post);
     }
 
-    private function failure($errors)
+    private function onPostCreateFailure($errors)
     {
-        if ($this->observer) {
-            return $this->observer->onPostCreateFailure($errors);
-        }
+        return $this->getObserver()->onPostCreateFailure($errors);
     }
 
-    private function success(Post $post)
+    private function onPostCreateSuccess($post)
     {
-        if ($this->observer) {
-            return $this->observer->onPostCreateSuccess($post);
-        }
+        return $this->getObserver()->onPostCreateSuccess($post);
     }
 }
