@@ -1,10 +1,8 @@
 <?php namespace Domain\Posts;
 
-use Domain\Core\ObserverTrait;
-
-class PostCreator implements PostCreatorObserver
+class PostCreator
 {
-    use ObserverTrait;
+    use PostCreatorObserver;
 
     private $posts;
 

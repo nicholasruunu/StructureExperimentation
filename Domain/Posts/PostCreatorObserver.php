@@ -1,7 +1,10 @@
 <?php namespace Domain\Posts;
 
-interface PostCreatorObserver
+use Domain\Core\ObserverTrait;
+
+trait PostCreatorObserver
 {
-    public function onPostCreateFailure($errors);
-    public function onPostCreateSuccess($post);
+    use ObserverTrait;
+    abstract public function onPostCreateFailure($errors);
+    abstract public function onPostCreateSuccess($post);
 }

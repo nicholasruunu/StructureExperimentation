@@ -8,8 +8,10 @@ use Domain\Posts\Post;
 use ...\...\Redirector;
 use ...\...\Request;
 
-class CreatePostController extends Controller implements PostCreatorObserver
+class CreatePostController extends Controller
 {
+    use PostCreatorObserver;
+
     private $creator;
     private $redirector;
     private $request;
